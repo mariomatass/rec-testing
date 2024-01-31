@@ -5,21 +5,21 @@ import Formulario from "../components/Formulario";
 import { emailValidation } from "../components/Formulario";
 
 describe('emailValidation function', () => {
-  test('should return a boolean value', () => {
+  test('devuelve un booleano', () => {
     expect(typeof emailValidation('example@example.com')).toBe('boolean');
   });
 
-  test('should return true for a valid email format', () => {
+  test('devuelve true si el formato es el correcto', () => {
     expect(emailValidation('example@example.com')).toBe(true);
   });
 
-  test('should return false for an invalid email format', () => {
+  test('devuelve false si el formato es el incorrecto', () => {
     expect(emailValidation('invalid_email')).toBe(false);
   });
 });
 
 describe('Formulario component', () => {
-  test('renders form elements', () => {
+  test('renderiza los elementos', () => {
     render(<Formulario />);
     expect(screen.getByText('Rellena el formulario')).toBeInTheDocument();
     expect(screen.getByLabelText('Nombre')).toBeInTheDocument();
@@ -27,14 +27,14 @@ describe('Formulario component', () => {
     expect(screen.getByRole('button', { name: 'Validar' })).toBeInTheDocument();
   });
 
-  test('renders "ok" image for valid email', () => {
+  test('renderiza el alt="ok" cuando se hace bien el formulario', () => {
     render(<Formulario />);
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'example@example.com' } });
     fireEvent.click(screen.getByRole('button', { name: 'Validar' }));
     expect(screen.getByAltText('ok')).toBeInTheDocument();
   });
 
-  test('renders "wrong" image for invalid email', () => {
+  test('renderiza el alt="wrong" cuando se hace mal el formulario', () => {
     render(<Formulario />);
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'invalid_email' } });
     fireEvent.click(screen.getByRole('button', { name: 'Validar' }));
